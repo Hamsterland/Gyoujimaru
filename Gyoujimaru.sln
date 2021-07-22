@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gyoujimaru", "Gyoujimaru\Gyoujimaru.csproj", "{CEF040E1-A588-477D-B31C-83EF2EC606A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gyoujimaru.MyAnimeList", "Gyoujimaru.MyAnimeList\Gyoujimaru.MyAnimeList.csproj", "{1201101D-6C7B-483F-9C87-83EAD40DCD11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gyoujimaru.Playground", "Gyoujimaru.Playground\Gyoujimaru.Playground.csproj", "{945DC135-0701-4813-B3D9-1CBB711A90C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEF040E1-A588-477D-B31C-83EF2EC606A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEF040E1-A588-477D-B31C-83EF2EC606A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEF040E1-A588-477D-B31C-83EF2EC606A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEF040E1-A588-477D-B31C-83EF2EC606A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1201101D-6C7B-483F-9C87-83EAD40DCD11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1201101D-6C7B-483F-9C87-83EAD40DCD11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1201101D-6C7B-483F-9C87-83EAD40DCD11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1201101D-6C7B-483F-9C87-83EAD40DCD11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{945DC135-0701-4813-B3D9-1CBB711A90C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{945DC135-0701-4813-B3D9-1CBB711A90C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{945DC135-0701-4813-B3D9-1CBB711A90C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{945DC135-0701-4813-B3D9-1CBB711A90C9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
