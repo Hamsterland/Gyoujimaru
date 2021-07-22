@@ -3,5 +3,7 @@
 /Gyoujimaru.MyAnimeList/obj/
 /Gyoujimaru/bin/
 /Gyoujimaru/obj/
+/Gyoujimaru/appsettings.json/
+/Gyoujimaru/credentials.json/
 /Gyoujimaru.sln.DotSettings.user
 /.idea/.idea.Gyoujimaru/.idea/
