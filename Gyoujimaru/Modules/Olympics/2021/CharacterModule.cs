@@ -35,23 +35,23 @@ namespace Gyoujimaru.Modules
             _trackerService = trackerService;
         }
         
-        [Command("info")]
-        [Summary("Shows information about your villain.")]
-        public async Task Info()
-        {
-            var character = await _characterService.GetSubmission(Context.User.Id);
-
-            if (character is null)
-            {
-                await ReplyAsync("You don't have a claimed villain.");
-                return;
-            }
-
-            var infoEmbed = new CharacterInfoEmbedBuilder(character, Context.Client)
-                .WithAllOptions()
-                .Build();
-            
-            await ReplyAsync(embed: infoEmbed);
-        }
+        // [Command("info")]
+        // [Summary("Shows information about your villain.")]
+        // public async Task Info()
+        // {
+        //     var character = await _characterService.GetSubmission(Context.User.Id);
+        //
+        //     if (character is null)
+        //     {
+        //         await ReplyAsync("You don't have a claimed villain.");
+        //         return;
+        //     }
+        //
+        //     var infoEmbed = new CharacterInfoEmbedBuilder(character, Context.Client)
+        //         .WithAllOptions()
+        //         .Build();
+        //     
+        //     await ReplyAsync(embed: infoEmbed);
+        // }
     }
 }
