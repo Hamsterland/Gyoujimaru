@@ -21,7 +21,7 @@ namespace Gyoujimaru.Modules
         {
             var submissions = await _characterService.GetAllSubmissions();
 
-            if (submissions.Count > 256)
+            if (submissions.Count >= 256)
             {
                 await ReplyAsync("There is no space left in this event, sorry!");
                 return;
