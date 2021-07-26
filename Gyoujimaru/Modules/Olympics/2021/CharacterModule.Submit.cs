@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Discord;
@@ -13,62 +14,75 @@ namespace Gyoujimaru.Modules
     {
         private readonly IEmote _up = new Emoji("👍");
         private readonly IEmote _down = new Emoji("👎");
-        private readonly Regex _characterUrlRegex = new(@"(https://)?(myanimelist.net/character/)(?<id>[1-9]+)/([a-zA-z]+)?");
+        private readonly Regex _characterUrlRegex = new(@"(https://)?(myanimelist.net/character/)(?<id>[0-9]+)/([a-zA-z]+)?");
         
         [Command("submit", RunMode = RunMode.Async)]
         [Summary("Submit a villain to claim.")]
-        public async Task Submit(string input)
+        public async Task Submit(params string[] input)
         {
-            var submissions = await _characterService.GetAllSubmissions();
-
-            if (submissions.Count >= 256)
+            if (input.Length > 3)
             {
-                await ReplyAsync("There is no space left in this event, sorry!");
-                return;
-            }
-            
-            var matches = _characterUrlRegex.Matches(input);
-            
-            if (matches.Count == 0)
-            {
-                await HandleInvalidUrl(input);
+                await ReplyAsync("You've submitted too many choices.");
                 return;
             }
 
-            if (await UserOwnsCharacter())
-            {
-                return;
-            }
+            var desc = string.Join("\n", input);
 
-            var characterToClaim = await _characterClient.GetCharacterFromUrl(input);
+            var channel = Context.Client.GetChannel(869200561776513084) as ITextChannel;
 
-            if (await AnotherUserOwnsCharacter(characterToClaim))
-            {
-                return;
-            }
+            await channel.SendMessageAsync(embed: new EmbedBuilder()
+                .WithUserAsAuthor(Context.User).WithDescription(desc).Build());
 
-            var match = matches.FirstOrDefault();
-            var reaction = await GetNextReaction(match.Value);
-
-            if (reaction is null)
-            {
-                await HandleNoReaction(characterToClaim);
-                return;
-            }
-            
-            if (IsConfirmReaction(reaction))
-            {
-                await HandleConfirmedReaction(characterToClaim);
-                return;
-            }
-
-            if (IsDenyReaction(reaction))
-            {
-                await HandleDeniedReaction(characterToClaim);
-                return;
-            }
-
-            await HandleInvalidReaction();
+            // var submissions = await _characterService.GetAllSubmissions();
+            //
+            // if (submissions.Count >= 256)
+            // {
+            //     await ReplyAsync("There is no space left in this event, sorry!");
+            //     return;
+            // }
+            //
+            // var matches = _characterUrlRegex.Matches(input);
+            //
+            // if (matches.Count == 0)
+            // {
+            //     await HandleInvalidUrl(input);
+            //     return;
+            // }
+            //
+            // if (await UserOwnsCharacter())
+            // {
+            //     return;
+            // }
+            //
+            // var characterToClaim = await _characterClient.GetCharacterFromUrl(input);
+            //
+            // if (await AnotherUserOwnsCharacter(characterToClaim))
+            // {
+            //     return;
+            // }
+            //
+            // var match = matches.FirstOrDefault();
+            // var reaction = await GetNextReaction(match.Value);
+            //
+            // if (reaction is null)
+            // {
+            //     await HandleNoReaction(characterToClaim);
+            //     return;
+            // }
+            //
+            // if (IsConfirmReaction(reaction))
+            // {
+            //     await HandleConfirmedReaction(characterToClaim);
+            //     return;
+            // }
+            //
+            // if (IsDenyReaction(reaction))
+            // {
+            //     await HandleDeniedReaction(characterToClaim);
+            //     return;
+            // }
+            //
+            // await HandleInvalidReaction();
         }
 
         private async Task HandleNoReaction(Character characterToClaim)

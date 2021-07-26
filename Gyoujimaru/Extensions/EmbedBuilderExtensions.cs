@@ -9,7 +9,7 @@ namespace Gyoujimaru.CustomExtensions
             return embedBuilder
                 .WithAuthor(author => author
                     .WithIconUrl(user.GetAvatarUrl())
-                    .WithName(titleOverride ?? user.ToString()));
+                    .WithName(titleOverride ?? $"{user} ({user.Id})"));
         }
     }
 }
