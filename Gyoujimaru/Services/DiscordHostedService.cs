@@ -28,6 +28,8 @@ namespace Gyoujimaru.Services
         public Task StartAsync(CancellationToken cancellationToken)
         {
             _client.MessageReceived += MessageReceived;
+            _client.ReactionAdded += ReactionAdded;
+            _client.ReactionRemoved += ReactionRemoved;
             _client.Log += Log;
             _commandService.CommandExecuted += CommandExected;
             return Task.CompletedTask;
@@ -36,9 +38,21 @@ namespace Gyoujimaru.Services
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _client.MessageReceived -= MessageReceived;
+            _client.ReactionAdded -= ReactionAdded;
+            _client.ReactionRemoved -= ReactionRemoved;
             _client.Log -= Log;
             _commandService.CommandExecuted -= CommandExected;
             return Task.CompletedTask;
+        }
+
+        private async Task ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            await _mediator.Publish(new ReactionAddedNotification(message, channel, reaction));
+        }
+
+        private async Task ReactionRemoved(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
+        {
+            await _mediator.Publish(new ReactionRemovedNotification(message, channel, reaction));
         }
 
         private async Task CommandExected(Optional<CommandInfo> command, ICommandContext context, IResult result)
