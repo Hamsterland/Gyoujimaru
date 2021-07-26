@@ -50,6 +50,12 @@ namespace Gyoujimaru.Modules
             var match = matches.FirstOrDefault();
             var reaction = await GetNextReaction(match.Value);
 
+            if (reaction is null)
+            {
+                await HandleNoReaction(characterToClaim);
+                return;
+            }
+            
             if (IsConfirmReaction(reaction))
             {
                 await HandleConfirmedReaction(characterToClaim);
@@ -63,6 +69,17 @@ namespace Gyoujimaru.Modules
             }
 
             await HandleInvalidReaction();
+        }
+
+        private async Task HandleNoReaction(Character characterToClaim)
+        {
+            var embed = new EmbedBuilder()
+                .WithUserAsAuthor(Context.User)
+                .WithDescription(
+                    $"20 seconds has passed, [{characterToClaim.RomanisedName}]({characterToClaim.Url}) has not been claimed as your villain due to timeout.")
+                .Build();
+
+            await ReplyAsync(embed: embed);
         }
 
         private async Task<bool> UserOwnsCharacter()
